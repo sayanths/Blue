@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './MainPage.dart';
+import 'package:flutter_bluetooth_serial_example/screen/splash_screen.dart';
 
 void main() => runApp(new ExampleApplication());
 
@@ -8,7 +8,7 @@ class ExampleApplication extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MainPage(),
+      home: SplashView(),
     );
   }
 }

@@ -7,7 +7,7 @@ import 'package:flutter_bluetooth_serial_example/screen/bluetooth_info.dart';
 import 'package:flutter_bluetooth_serial_example/screen/settings.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
-import 'package:iconify_flutter/icons/material_symbols.dart';
+import 'package:iconify_flutter/icons/ic.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -50,7 +50,6 @@ class _MainPage extends State<MainPage> {
   @override
   void dispose() {
     FlutterBluetoothSerial.instance.setPairingRequestHandler(null);
-
     _discoverableTimeoutTimer?.cancel();
     super.dispose();
   }
@@ -59,7 +58,8 @@ class _MainPage extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff393939),
+        elevation: 0,
+        backgroundColor: Colors.black,
         title: Text("Bluetooth Device Manager"),
         actions: [
           IconButton(
@@ -80,8 +80,7 @@ class _MainPage extends State<MainPage> {
             end: Alignment.bottomCenter,
             colors: [
               Color(0xff000000),
-              Color(0xff212121),
-              Color(0xff242323),
+              Color(0xFF2C2B2B),
               Color(0xff000000),
             ],
           ),
@@ -89,106 +88,216 @@ class _MainPage extends State<MainPage> {
         child: Column(
           children: <Widget>[
             SizedBox(height: 40),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              width: double.infinity,
-              height: 60,
-              decoration: BoxDecoration(
-                color: Color(0xff393939),
-                borderRadius: BorderRadius.circular(10),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xffA5A5A5),
-                    Color(0xFF494848),
-                    Color(0xff000000),
-                    Color(0xFF494848),
-                    Color(0xffA5A5A5),
-                  ],
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Bluetooth Status",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
+            SizedBox(height: 30),
+            Stack(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  height: 60,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Color(0xff393939),
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xff000000),
+                        Color(0xff000000),
+                        Color(0xFFC9943B),
+                        Color(0xFFFEFCA3),
+                      ],
                     ),
                   ),
-                  CupertinoSwitch(
-                    activeColor: Color(0xffE9E242),
-                    value: _bluetoothState.isEnabled,
-                    onChanged: (value) {
-                      future() async {
-                        if (value)
-                          await FlutterBluetoothSerial.instance.requestEnable();
-                        else
-                          await FlutterBluetoothSerial.instance
-                              .requestDisable();
-                      }
+                ),
+                Positioned(
+                  left: 2,
+                  right: 2,
+                  bottom: 2,
+                  top: 2,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    height: 55,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF000000),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      children: [
+                        Iconify(
+                          Bi.bluetooth,
+                          color: Color(0xFFC9943B),
+                        ),
+                        SizedBox(width: 15),
+                        Text(
+                          "Bluetooth Status",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                        Spacer(),
+                        CupertinoSwitch(
+                          activeColor: Color(0xffE9E242),
+                          value: _bluetoothState.isEnabled,
+                          onChanged: (value) {
+                            future() async {
+                              if (value)
+                                await FlutterBluetoothSerial.instance
+                                    .requestEnable();
+                              else
+                                await FlutterBluetoothSerial.instance
+                                    .requestDisable();
+                            }
 
-                      future().then((_) {
-                        setState(() {});
-                      });
+                            future().then((_) {
+                              setState(() {});
+                            });
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return BluetoothInfo();
                     },
-                  )
+                  ),
+                );
+              },
+              child: Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    height: 60,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Color(0xff393939),
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xff000000),
+                          Color(0xff000000),
+                          Color(0xFFC9943B),
+                          Color(0xFFFEFCA3),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 2,
+                    right: 2,
+                    bottom: 2,
+                    top: 2,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      height: 55,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF000000),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        children: [
+                          Iconify(
+                            Bi.info_circle,
+                            color: Color(0xFFC9943B),
+                          ),
+                          SizedBox(width: 15),
+                          Text(
+                            "Bluetooth Info",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                          Spacer(),
+                          Iconify(
+                            Ic.baseline_keyboard_arrow_right,
+                            color: Color(0xFFC9943B),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  "assets/logo.png",
-                  height: 100,
-                  width: 100,
-                ),
-              ],
-            ),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // BlueButtons(
-                //   icon1: Ic.round_bluetooth_audio,
-                //   text: "Paired Devices",
-                //   onPressed: () {},
-                // ),
-                // SizedBox(width: 10),
-                BlueButtons(
-                  icon1: Bi.info_circle,
-                  text: "Bluetooth Info",
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return BluetoothInfo();
-                        },
+            SizedBox(height: 15),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return DiscoveryPage();
+                    },
+                  ),
+                );
+              },
+              child: Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    height: 60,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Color(0xff393939),
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xff000000),
+                          Color(0xff000000),
+                          Color(0xFFC9943B),
+                          Color(0xFFFEFCA3),
+                        ],
                       ),
-                    );
-                  },
-                ),
-                SizedBox(width: 10),
-                BlueButtons(
-                  icon1: MaterialSymbols.screen_search_desktop_outline,
-                  text: "Find Devices",
-                  onPressed: () async {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return DiscoveryPage();
-                        },
+                    ),
+                  ),
+                  Positioned(
+                    left: 2,
+                    right: 2,
+                    bottom: 2,
+                    top: 2,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      height: 55,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF000000),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    );
-                  },
-                ),
-              ],
+                      child: Row(
+                        children: [
+                          Iconify(
+                            Ic.baseline_bluetooth_searching,
+                            color: Color(0xFFC9943B),
+                          ),
+                          SizedBox(width: 15),
+                          Text(
+                            "Find Devices",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                          Spacer(),
+                          Iconify(
+                            Ic.baseline_keyboard_arrow_right,
+                            color: Color(0xFFC9943B),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 120),
           ],
         ),
       ),

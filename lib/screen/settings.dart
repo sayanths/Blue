@@ -7,7 +7,7 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff393939),
+        backgroundColor: Color(0xff000000),
         centerTitle: true,
         title: Text("Settings"),
       ),
@@ -40,9 +40,9 @@ class SettingsView extends StatelessWidget {
               trailing: Text("1.0.0", style: TextStyle(color: Colors.white)),
             ),
             ListTile(
-              leading: Icon(Icons.bug_report, color: Colors.white),
+              leading: Icon(Icons.payments, color: Colors.white),
               title: Text(
-                "Report a bug",
+                "Pay for ad-free version",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,
@@ -75,7 +75,7 @@ class SettingsView extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.info_outline, color: Colors.white),
               title: Text(
-                "About",
+                "License",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,
