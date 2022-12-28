@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:flutter_bluetooth_serial_example/DiscoveryPage.dart';
 import 'package:flutter_bluetooth_serial_example/screen/bluetooth_info.dart';
+import 'package:flutter_bluetooth_serial_example/screen/paired_device.dart';
 import 'package:flutter_bluetooth_serial_example/screen/settings.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:iconify_flutter/icons/ic.dart';
+import 'package:iconify_flutter/icons/ph.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -58,6 +60,7 @@ class _MainPage extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.black,
         title: Text("Bluetooth Device Manager"),
@@ -125,15 +128,15 @@ class _MainPage extends State<MainPage> {
                       children: [
                         Iconify(
                           Bi.bluetooth,
-                          color: Color(0xFFC9943B),
+                          color: Color(0xFFFEFCA3),
                         ),
                         SizedBox(width: 15),
                         Text(
                           "Bluetooth Status",
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w300),
                         ),
                         Spacer(),
                         CupertinoSwitch(
@@ -207,20 +210,91 @@ class _MainPage extends State<MainPage> {
                         children: [
                           Iconify(
                             Bi.info_circle,
-                            color: Color(0xFFC9943B),
+                            color: Color(0xFFFEFCA3),
                           ),
                           SizedBox(width: 15),
                           Text(
                             "Bluetooth Info",
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w300),
                           ),
                           Spacer(),
                           Iconify(
                             Ic.baseline_keyboard_arrow_right,
-                            color: Color(0xFFC9943B),
+                            color: Color(0xFFFEFCA3),
+                            size: 30,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 15),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return PairedPage();
+                    },
+                  ),
+                );
+              },
+              child: Stack(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    height: 60,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Color(0xff393939),
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xff000000),
+                          Color(0xff000000),
+                          Color(0xFFC9943B),
+                          Color(0xFFFEFCA3),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 2,
+                    right: 2,
+                    bottom: 2,
+                    top: 2,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      height: 55,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF000000),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        children: [
+                          Iconify(
+                            Ph.device_mobile_camera_thin,
+                            color: Color(0xFFFEFCA3),
+                          ),
+                          SizedBox(width: 15),
+                          Text(
+                            "Paired Devices",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w300),
+                          ),
+                          Spacer(),
+                          Iconify(
+                            Ic.baseline_keyboard_arrow_right,
+                            color: Color(0xFFFEFCA3),
+                            size: 30,
                           ),
                         ],
                       ),
@@ -275,21 +349,22 @@ class _MainPage extends State<MainPage> {
                       child: Row(
                         children: [
                           Iconify(
-                            Ic.baseline_bluetooth_searching,
-                            color: Color(0xFFC9943B),
+                            Ph.device_mobile_camera_thin,
+                            color: Color(0xFFFEFCA3),
                           ),
                           SizedBox(width: 15),
                           Text(
                             "Find Devices",
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                            ),
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w300),
                           ),
                           Spacer(),
                           Iconify(
                             Ic.baseline_keyboard_arrow_right,
-                            color: Color(0xFFC9943B),
+                            color: Color(0xFFFEFCA3),
+                            size: 30,
                           ),
                         ],
                       ),
