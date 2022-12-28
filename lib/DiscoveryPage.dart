@@ -72,7 +72,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Color(0xff393939),
+        backgroundColor: Color(0xff000000),
         title: Text('List of devices'),
         actions: [
           isDiscovering
