@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({Key? key}) : super(key: key);
@@ -61,16 +62,22 @@ class SettingsView extends StatelessWidget {
               ),
               trailing: Icon(Icons.arrow_forward_ios, color: Colors.white),
             ),
-            ListTile(
-              leading: Icon(Icons.share, color: Colors.white),
-              title: Text(
-                "Share the app",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
+            InkWell(
+              onTap: () async {
+                await Share.share(
+                    'https://play.google.com/store/apps/details?id=com.dword.bluetooth_device_manager');
+              },
+              child: ListTile(
+                leading: Icon(Icons.share, color: Colors.white),
+                title: Text(
+                  "Share the app",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
                 ),
+                trailing: Icon(Icons.arrow_forward_ios, color: Colors.white),
               ),
-              trailing: Icon(Icons.arrow_forward_ios, color: Colors.white),
             ),
             ListTile(
               leading: Icon(Icons.info_outline, color: Colors.white),

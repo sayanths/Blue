@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ph.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DiscoveryPage extends StatefulWidget {
   final bool start;
@@ -117,6 +118,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                 device: device,
                 result: result,
                 onTap: () async {
+                  final pref = await SharedPreferences.getInstance();
                   try {
                     bool bonded = false;
                     if (device.isBonded) {
@@ -125,6 +127,8 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                     } else {
                       bonded = (await FlutterBluetoothSerial.instance
                           .bondDeviceAtAddress(address))!;
+                      await pref.setBool(
+                          "getPairedDevice", device.isBonded == true);
                     }
                     setState(
                       () {

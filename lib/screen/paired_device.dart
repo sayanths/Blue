@@ -99,50 +99,77 @@ class _PairedPageState extends State<PairedPage> {
                 device: device,
                 result: result,
                 onTap: () async {
-                  try {
-                    bool bonded = false;
-                    if (device.isBonded) {
-                      await FlutterBluetoothSerial.instance
-                          .removeDeviceBondWithAddress(address);
-                    } else {
-                      bonded = (await FlutterBluetoothSerial.instance
-                          .bondDeviceAtAddress(address))!;
-                    }
-                    setState(
-                      () {
-                        results[results.indexOf(result)] =
-                            BluetoothDiscoveryResult(
-                          device: BluetoothDevice(
-                            name: device.name ?? '',
-                            address: address,
-                            type: device.type,
-                            bondState: bonded
-                                ? BluetoothBondState.bonded
-                                : BluetoothBondState.none,
-                          ),
-                          rssi: result.rssi,
-                        );
-                      },
-                    );
-                  } catch (ex) {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text('Error occurred while bonding'),
-                          content: Text("${ex.toString()}"),
-                          actions: [
-                            TextButton(
-                              child: Text("Close"),
-                              onPressed: () {
+                  // try {
+                  //   bool bonded = false;
+                  //   if (device.isBonded) {
+                  //     await FlutterBluetoothSerial.instance
+                  //         .removeDeviceBondWithAddress(address);
+                  //   } else {
+                  //     bonded = (await FlutterBluetoothSerial.instance
+                  //         .bondDeviceAtAddress(address))!;
+                  //   }
+                  //   setState(
+                  //     () {
+                  //       results[results.indexOf(result)] =
+                  //           BluetoothDiscoveryResult(
+                  //         device: BluetoothDevice(
+                  //           name: device.name ?? 'Unkown device',
+                  //           address: address,
+                  //           type: device.type,
+                  //           bondState: bonded
+                  //               ? BluetoothBondState.bonded
+                  //               : BluetoothBondState.none,
+                  //         ),
+                  //         rssi: result.rssi,
+                  //       );
+                  //     },
+                  //   );
+                  // } catch (ex) {
+                  // showDialog(
+                  //   context: context,
+                  //   builder: (BuildContext context) {
+                  //     return AlertDialog(
+                  //       title: const Text('Error occurred while bonding'),
+                  //       content: Text("${ex.toString()}"),
+                  //       actions: [
+                  //         TextButton(
+                  //           child: Text("Close"),
+                  //           onPressed: () {
+                  //             Navigator.of(context).pop();
+                  //           },
+                  //         ),
+                  //       ],
+                  //     );
+                  //   },
+                  // );
+                  // }
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Unpair'),
+                        content: Text("sure to unpair["),
+                        actions: [
+                          TextButton(
+                            child: Text("Un pair"),
+                            onPressed: () async {
+                              if (device.isBonded == true) {
+                                await FlutterBluetoothSerial.instance
+                                    .removeDeviceBondWithAddress(address);
                                 Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  }
+                              }
+                            },
+                          ),
+                          TextButton(
+                            child: Text("Close"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
               );
             },
