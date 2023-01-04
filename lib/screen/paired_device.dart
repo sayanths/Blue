@@ -148,10 +148,10 @@ class _PairedPageState extends State<PairedPage> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         title: const Text('Unpair'),
-                        content: Text("sure to unpair["),
+                        content: Text("Are you sure to unpair?"),
                         actions: [
                           TextButton(
-                            child: Text("Un pair"),
+                            child: Text("Unpair"),
                             onPressed: () async {
                               if (device.isBonded == true) {
                                 await FlutterBluetoothSerial.instance
